@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            店舗情報編集
         </h2>
     </x-slot>
 
@@ -28,7 +28,7 @@
                             <div class="p-2 w-1/2 mx-auto">
                                 <div class="relative">
                                     <div class="w-32">
-                                        <x-shop-thumbnail :filename="$shop->filename"></x-shop-thumbnail>
+                                        <x-thumbnail :filename="$shop->filename" type="shops"></x-thumbnail>
                                     </div>
                                 </div>
                             </div>
