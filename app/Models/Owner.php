@@ -43,11 +43,13 @@ class Owner extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function shop() {
+    public function shop()
+    {
         return $this->hasOne(Shop::class);
     }
 
-    public function image() {
+    public function image()
+    {
         return $this->hasMany(Image::class);
     }
 }
