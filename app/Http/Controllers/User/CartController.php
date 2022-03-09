@@ -82,8 +82,6 @@ class CartController extends Controller
             ]);
         }
 
-        dd('テスト');
-
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
@@ -93,8 +91,10 @@ class CartController extends Controller
             'cancel_url' => route('user.cart.index'),
         ]);
 
-        $publicKey = env('STRIPE_PUBLIC_KEY');
+        // $publicKey = env('STRIPE_PUBLIC_KEY');
 
-        return view('user.checkout', compact('session', 'publicKey'));
+        // return view('user.checkout', compact('session', 'publicKey'));
+
+        return redirect($session->url, '303');
     }
 }
