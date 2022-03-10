@@ -32,6 +32,7 @@ class ItemController extends Controller
         $categories = PrimaryCategory::with('secondary')->get();
         $products = Product::AvailableItems()
             ->selectCategory($request->category ?? '0')
+            ->searchKeyword($request->keyword)
             ->sortOrder($request->sort)
             ->paginate($request->pagination ?? '20');
 
