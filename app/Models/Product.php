@@ -10,6 +10,7 @@ use App\Models\Image;
 use App\Models\Stock;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Constants\Common;
 
 class Product extends Model
 {
@@ -87,5 +88,24 @@ class Product extends Model
             ->where('shops.is_selling', true)
             ->where('products.is_selling', true)
             ->select('products.id as id', 'products.name as name', 'products.price', 'products.sort_order as sort_order', 'products.information', 'secondary_categories.name as category');
+    }
+
+    public function scopeSortOrder($query, $sortOrder)
+    {
+        if ($sortOrder === null || $sortOrder === Common::SORT_ORDER['recommend']) {
+            return $query->orderBy('sort_order', 'asc');
+        }
+        if ($sortOrder === Common::SORT_ORDER['higherPrice']) {
+            return $query->orderBy('price', 'desc');
+        }
+        if ($sortOrder === Common::SORT_ORDER['lowerPrice']) {
+            return $query->orderBy('price', 'asc');
+        }
+        if ($sortOrder === Common::SORT_ORDER['later']) {
+            return $query->orderBy('products.created_at', 'desc');
+        }
+        if ($sortOrder === Common::SORT_ORDER['older']) {
+            return $query->orderBy('products.created_at', 'asc');
+        }
     }
 }

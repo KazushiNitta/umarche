@@ -1,18 +1,33 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            ホーム
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                ホーム
+            </h2>
+            <div>
+                <form method="get" action="{{ route('user.items.index') }}">
+                    <div class="flex">
+                        <div>
+                            <span class="text-sm">表示順</span><br>
+                            <select name="sort" id="sort" class="mr-4">
+                                <option value="0" @if (\Request::get('sort') === '0') selected @endif>おすすめ順</option>
+                                <option value="1" @if (\Request::get('sort') === '1') selected @endif>料金が高い順</option>
+                                <option value="2" @if (\Request::get('sort') === '2') selected @endif>料金が安い順</option>
+                                <option value="3" @if (\Request::get('sort') === '3') selected @endif>新しい順</option>
+                                <option value="4" @if (\Request::get('sort') === '4') selected @endif>古い順</option>
+                            </select>
+                        </div>
+                        <div>表示件数</div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    {{-- <x-flash-message status="session('status')"></x-flash-message>
-                    <div class="flex justify-end mb-4">
-                        <button onclick="location.href='{{ route('owner.products.create') }}'" class="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg">新規登録</button>
-                    </div> --}}
                     <div class="flex flex-wrap">
                         @foreach ($products as $product)
                             <div class="w-1/4 p-2 md:p-4">
@@ -33,4 +48,10 @@
             </div>
         </div>
     </div>
+    <script>
+        const select = document.getElementById('sort')
+        select.addEventListener('change', function() {
+            this.form.submit()
+        })
+    </script>
 </x-app-layout>
